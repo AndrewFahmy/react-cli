@@ -1,8 +1,12 @@
 {
-  "name": "@react/cli",
+  "name": "simple-rcli",
   "version": "1.0.0",
   "description": "Simple CLI for creating and building react applications",
-  "keywords": ["react", "cli", "build-tools"],
+  "keywords": [
+    "react",
+    "cli",
+    "build-tools"
+  ],
   "bin": {
     "rcli": "."
   },
