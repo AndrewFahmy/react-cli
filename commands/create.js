@@ -44,8 +44,8 @@ function initializeNewGitRepo(dirPath) {
     });
 }
 
-function cloneFiles(args, dirPath) {
-    const oldGitPath = path.resolve(files.getCurrentDirectoryBase(), args.name, '.git');
+function cloneFiles(args, dirPath, callback) {
+    const oldGitPath = path.resolve(dirPath, '.git');
 
     exec(`git clone ${templatesUrl} . -b ${args.template}`, {
         cwd: dirPath
@@ -55,6 +55,8 @@ function cloneFiles(args, dirPath) {
         files.deleteDirectory(oldGitPath);
 
         updatePackageConfigFile(args);
+
+        if (callback) callback();
     });
 }
 
@@ -69,17 +71,18 @@ function execute(args) {
 
     console.log('Cloning project files...');
 
-    cloneFiles(args, dirPath);
+    cloneFiles(args, dirPath, () => {
 
-    if (!args.skipGit) {
-        console.log('Initializing Git repo...');
+        if (!args.skipGit) {
+            console.log('Initializing Git repo...');
 
-        initializeNewGitRepo(dirPath);
-    }
-    else {
-        console.log(cliColor.yellow('Git repo initialization was skipped.'));
-        console.log(cliColor.green('Project creation was successful.'));
-    }
+            initializeNewGitRepo(dirPath);
+        }
+        else {
+            console.log(cliColor.yellow('Git repo initialization was skipped.'));
+            console.log(cliColor.green('Project creation was successful.'));
+        }
+    });
 }
 
 module.exports = {
