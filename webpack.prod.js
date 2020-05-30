@@ -7,9 +7,7 @@ function generate(env) {
 
     const config = configFactory(env);
 
-    config.plugins.unshift(new CleanWebpackPlugin({
-        cleanOnceBeforeBuildPatterns: ["*.*"]
-    }));
+    config.plugins.unshift(new CleanWebpackPlugin());
 
     return merge(config, {
         devtool: "source-map",

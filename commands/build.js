@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 
 function execute(mode) {
-    let config = null;
+    let config = {};
 
     if (String(mode).toLowerCase() === 'development') {
         config = require('../webpack.dev');
@@ -10,7 +10,7 @@ function execute(mode) {
         config = require('../webpack.prod')(mode);
     }
 
-    const compiler = webpack(configuration);
+    const compiler = webpack(config);
 
     compiler.run();
 }
