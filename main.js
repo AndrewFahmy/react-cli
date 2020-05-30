@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const cliColor = require('cli-color'),
     figlet = require('figlet'),
     clear = require('clear'),
@@ -12,7 +13,6 @@ clear();
 console.log(
     cliColor.white(
         figlet.textSync('React CLI', { horizontalLayout: "full" })));
-
 
 let arguments = yargs.usage('rcli <command> [parameter(s)]');
 

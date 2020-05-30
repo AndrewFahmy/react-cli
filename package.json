@@ -1,16 +1,16 @@
 {
   "name": "simple-rcli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple CLI for creating and building react applications",
+  "main": "main.js",
+  "bin": {
+    "rcli": "./main.js"
+  },
   "keywords": [
     "react",
     "cli",
     "build-tools"
   ],
-  "bin": {
-    "rcli": "."
-  },
-  "main": "main.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AndrewFahmy/react-cli.git"

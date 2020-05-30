@@ -1,5 +1,5 @@
 const { exec } = require('child_process'),
-    files = require('../lib/files'),
+    files = require('../helpers/files'),
     path = require('path'),
     cliColor = require('cli-color');
 

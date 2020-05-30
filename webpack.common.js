@@ -5,8 +5,8 @@ const path = require('path'),
     htmlPlugin = require('html-webpack-plugin'),
     progressPlugin = require('simple-progress-webpack-plugin'),
     cliColor = require('cli-color'),
-    files = require('./lib/files'),
-    config = require('./lib/config'),
+    files = require('./helpers/files'),
+    config = require('./helpers/config'),
     webpack = require('webpack');
 
 function generate(env) {
