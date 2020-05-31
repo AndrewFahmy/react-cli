@@ -53,7 +53,6 @@ function generate(env) {
                             ),
                             plugins: [
                                 require.resolve('babel-plugin-transform-typescript-metadata'),
-                                require.resolve('babel-plugin-transform-typescript-metadata'),
                                 [["@babel/plugin-proposal-decorators", { "legacy": true }]],
                                 [require.resolve('babel-plugin-named-asset-import'),
                                 {
