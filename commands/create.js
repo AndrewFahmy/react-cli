@@ -94,7 +94,7 @@ module.exports = {
                 type: 'string',
                 demandOption: true
             }).positional('template', {
-                describe: 'Template to be used for project, you can view all templates on the following link (they are the repo branches): '
+                describe: 'Template to be used for project, you can view all templates on the following link: '
                     + 'https://github.com/AndrewFahmy/react-templates/branches/all',
                 alias: 't',
                 type: 'string',

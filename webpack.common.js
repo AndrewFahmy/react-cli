@@ -44,21 +44,26 @@ function generate(env) {
                     use: {
                         loader: require.resolve('babel-loader'),
                         options: {
-                            presets: [require.resolve("@babel/preset-env"), require.resolve("@babel/preset-react"), require.resolve("@babel/preset-typescript")],
+                            presets: [require.resolve("@babel/preset-env"),
+                            require.resolve("@babel/preset-react"),
+                            require.resolve("@babel/preset-typescript")],
+
                             customize: require.resolve(
                                 'babel-preset-react-app/webpack-overrides'
                             ),
                             plugins: [
-                                [
-                                    require.resolve('babel-plugin-named-asset-import'),
-                                    {
-                                        loaderMap: {
-                                            svg: {
-                                                ReactComponent:
-                                                    '@svgr/webpack?-svgo,+titleProp,+ref![path]',
-                                            },
+                                require.resolve('babel-plugin-transform-typescript-metadata'),
+                                require.resolve('babel-plugin-transform-typescript-metadata'),
+                                [["@babel/plugin-proposal-decorators", { "legacy": true }]],
+                                [require.resolve('babel-plugin-named-asset-import'),
+                                {
+                                    loaderMap: {
+                                        svg: {
+                                            ReactComponent:
+                                                '@svgr/webpack?-svgo,+titleProp,+ref![path]',
                                         },
                                     },
+                                },
                                 ],
                             ],
                             // This is a feature of `babel-loader` for webpack (not Babel itself).
