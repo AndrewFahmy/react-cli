@@ -1,6 +1,6 @@
 {
   "name": "simple-rcli",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Simple CLI for creating and building react applications",
   "main": "main.js",
   "bin": {

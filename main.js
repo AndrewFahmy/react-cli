@@ -21,7 +21,7 @@ arguments = serveCommand.bindServeCommand(arguments);
 arguments = buildCommand.bindBuildCommand(arguments);
 
 arguments.scriptName('')
-    .version('1.0.5')
+    .version('1.0.6')
     .help()
     .alias('h', 'help')
     .alias('v', 'version').argv;

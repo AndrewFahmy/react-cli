@@ -52,8 +52,8 @@ function generate(env) {
                                 'babel-preset-react-app/webpack-overrides'
                             ),
                             plugins: [
-                                require.resolve('babel-plugin-transform-typescript-metadata'),
-                                [["@babel/plugin-proposal-decorators", { "legacy": true }]],
+                                [require.resolve('babel-plugin-transform-typescript-metadata')],
+                                ["@babel/plugin-proposal-decorators", { "legacy": true }],
                                 [require.resolve('babel-plugin-named-asset-import'),
                                 {
                                     loaderMap: {
