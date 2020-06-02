@@ -12,50 +12,46 @@ Main help section.
     rcli <command> [parameter(s)]
 
     Commands:
-    new <name> [template] [skipGit]  Creates a new applicaiton based on selected 
-                                     template.
-
-    serve [open] [port]              Start dev server for a react application.
-
-    build [mode]                     Build application files with specified
-                                     configuration.
+    create <name> [template] [skip-git]       Creates a new applicaiton based on
+        [skip-install]                            selected template.   [aliases: c, n]
+    generate <name> [type] [skip-style]       Creates a new component based on
+        [skip-container]                          supplied options.       [aliases: g]
 
     Options:
-    -h, --help     Show help
-    -v, --version  Show version number
+    -h, --help     Show help                                             
+    -v, --version  Show version number                                   
 
 
 ## Create New Project Command
-You can create a new project (base on one of the [templates](https://github.com/AndrewFahmy/react-templates/branches/all)) with the `new` command.
+You can create a new project (base on one of the [templates](https://github.com/AndrewFahmy/react-templates/branches/all)) with the `create` command.
 
-    rcli new <name> [template] [skipGit]
+    create <name> [template] [skip-git] [skip-install]
     Creates a new applicaiton based on selected template.
 
     Parameters:
-    name, n      Name of new project.                          [string] [required]
-    template, t  Template to be used for project     [string] [default: "default"]
-    skipGit, s   Skips creating a git repository for the new project.
+    name, n          Name of new project.                      [string] [required]
+    template, t      Template to be used for project, you can view all templates
+                     on the following link:
+                     https://github.com/AndrewFahmy/react-templates/branches/all
+                                        [string] [default: "default-typescript"]
+    skip-git, G      Skips creating a git repository for the new project.
+                                                      [boolean] [default: false]
+    skip-install, I  Skips installing template dependencies using NPM.
                                                       [boolean] [default: false]
 
 
-## Start a dev server
-You can start a dev server by using the `serve` command.
+## Generate New Component
+You can generate a new component, `class` or `function` components are supported.
 
-    rcli serve [open] [port]
-    Start dev server for a react application.
+    generate <name> [type] [skip-style] [skip-container]
+    Creates a new component based on supplied options.
 
     Parameters:
-    open, o  Opens the default web browser to view the application.
+    name, n            Name of new component in param case i.e name-of-component.
+                                                             [string] [required]
+    type, t            Type of component, whether "class" or "function".
+                        [string] [choices: "function", "class"] [default: "function"]
+    skip-style, S      Creates a component without it's own scss style.
                                                       [boolean] [default: false]
-    port, p  Port used to serve the application.        [number] [default: 3000]
-
-
-## Create a production build
-You can create a build for production using the `build` command.
-
-    rcli build [mode]
-    Build application files with specified configuration.
-
-    Parameters:
-     mode, m  Specify build mode (development, production, etc...).
-                                                [string] [default: "production"]
+    skip-container, C  Doesn't create a dedicated folder for the component.
+                                                      [boolean] [default: false]

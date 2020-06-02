@@ -12,5 +12,7 @@ module.exports = {
 
     getJsonContents: (path) => require(path),
 
-    updateJsonFile: (path, data) => fs.writeFileSync(path, JSON.stringify(data, null, 4))
+    updateJsonFile: (path, data) => fs.writeFileSync(path, JSON.stringify(data, null, 4)),
+
+    writeFile: (path, value) => fs.writeFileSync(path, value)
 };

@@ -1,7 +1,10 @@
 const { exec } = require('child_process'),
     files = require('../helpers/files'),
     path = require('path'),
-    cliColor = require('cli-color');
+    cliColor = require('cli-color'),
+    ora = require('ora');
+
+const spinner = ora();
 
 const templatesUrl = 'https://github.com/AndrewFahmy/react-templates.git';
 
@@ -21,8 +24,13 @@ function tryCreateProjectDir(args) {
 
     if (!files.pathExists(dirPath)) {
         files.createDirectory(dirPath);
+
+        spinner.succeed('Project folder creation was successful.');
     }
-    else throw cliColor.red('A project with the same name already exists please chose another.');
+    else {
+        spinner.fail();
+        throw cliColor.red('A project with the same name already exists please chose another.');
+    }
 }
 
 function updatePackageConfigFile(args) {
@@ -34,13 +42,27 @@ function updatePackageConfigFile(args) {
     files.updateJsonFile(packageLocation, package);
 }
 
-function initializeNewGitRepo(dirPath) {
+function initializeNewGitRepo(dirPath, callback) {
     exec('git init', {
         cwd: dirPath
     }, (err) => {
-        if (err) throw err;
+        if (err) { spinner.fail(); throw err; }
 
-        console.log(cliColor.green('Project creation was successful.'));
+        spinner.succeed('Git repo initialization was successful.');
+
+        if (callback) callback();
+    });
+}
+
+function installDependencies(dirPath, callback) {
+    exec('npm i', {
+        cwd: dirPath
+    }, (err) => {
+        if (err) { spinner.fail(); throw err; }
+
+        spinner.succeed('dependencies installation was successful.');
+
+        if (callback) callback();
     });
 }
 
@@ -50,14 +72,46 @@ function cloneFiles(args, dirPath, callback) {
     exec(`git clone ${templatesUrl} . -b ${args.template}`, {
         cwd: dirPath
     }, (err) => {
-        if (err) throw err;
+        if (err) { spinner.fail(); throw err; }
 
         files.deleteDirectory(oldGitPath);
 
         updatePackageConfigFile(args);
 
+        spinner.succeed('Project files were downloaded successfully.')
+
         if (callback) callback();
     });
+}
+
+function handleInitializationAndInstallation(args, dirPath, callback) {
+    if (!args.skipGit && !args.skipInstall) {
+        spinner.start('Initializing Git repo...');
+
+        initializeNewGitRepo(dirPath, () => {
+            spinner.start('Installing dependencies...');
+
+            installDependencies(dirPath, () => {
+                if (callback) callback();
+            });
+        });
+    }
+    else {
+        spinner.warn('Git repo initialization was skipped.');
+
+        if (!args.skipInstall) {
+            spinner.start('Installing dependencies...');
+
+            installDependencies(dirPath, () => {
+                if (callback) callback();
+            });
+        }
+        else {
+            spinner.warn('Dependencies installation was skipped.');
+
+            if (callback) callback();
+        }
+    }
 }
 
 function execute(args) {
@@ -65,29 +119,23 @@ function execute(args) {
 
     const dirPath = path.resolve(files.getCurrentDirectoryBase(), args.name);
 
-    console.log('Creating project folder...');
+    spinner.start('Creating project folder...');
 
     tryCreateProjectDir(args);
 
-    console.log('Cloning project files...');
+    spinner.start('Cloning project files...');
 
     cloneFiles(args, dirPath, () => {
 
-        if (!args.skipGit) {
-            console.log('Initializing Git repo...');
-
-            initializeNewGitRepo(dirPath);
-        }
-        else {
-            console.log(cliColor.yellow('Git repo initialization was skipped.'));
-            console.log(cliColor.green('Project creation was successful.'));
-        }
+        handleInitializationAndInstallation(args, dirPath, () => {
+            spinner.succeed(cliColor.green('Project creation was successful.'));
+        });
     });
 }
 
 module.exports = {
     bindCreateCommand: (yargs) => {
-        return yargs.command('new <name> [template] [skipGit]', 'Creates a new applicaiton based on selected template.', (yargs) => {
+        return yargs.command(['create <name> [template] [skip-git] [skip-install]', 'c', 'n'], 'Creates a new applicaiton based on selected template.', (yargs) => {
             yargs.positional('name', {
                 describe: 'Name of new project.',
                 alias: 'n',
@@ -98,13 +146,18 @@ module.exports = {
                     + 'https://github.com/AndrewFahmy/react-templates/branches/all',
                 alias: 't',
                 type: 'string',
-                default: 'default'
-            }).positional('skipGit', {
+                default: 'default-typescript'
+            }).positional('skip-git', {
                 desc: 'Skips creating a git repository for the new project.',
-                alias: 's',
+                alias: 'G',
+                type: 'boolean',
+                default: false
+            }).positional('skip-install', {
+                desc: 'Skips installing template dependencies using NPM.',
+                alias: 'I',
                 type: 'boolean',
                 default: false
             })
-        }, ({ name, template, skipGit }) => execute({ name, template, skipGit }));
+        }, (args) => execute(args));
     }
 }

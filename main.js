@@ -3,9 +3,8 @@ const cliColor = require('cli-color'),
     figlet = require('figlet'),
     clear = require('clear'),
     yargs = require('yargs'),
-    serveCommand = require('./commands/serve'),
-    buildCommand = require('./commands/build'),
-    createCommand = require('./commands/create');
+    createCommand = require('./commands/create'),
+    generateCommand = require('./commands/generate');
 
 
 clear();
@@ -17,11 +16,10 @@ console.log(
 let arguments = yargs.usage('rcli <command> [parameter(s)]');
 
 arguments = createCommand.bindCreateCommand(arguments);
-arguments = serveCommand.bindServeCommand(arguments);
-arguments = buildCommand.bindBuildCommand(arguments);
+arguments = generateCommand.bindGenerateCommand(arguments);
 
 arguments.scriptName('')
-    .version('1.0.6')
+    .version('2.0.0')
     .help()
     .alias('h', 'help')
     .alias('v', 'version').argv;

@@ -1,0 +1,7 @@
+{
+    "styleFunctionTemplate": "import React from 'react';\nimport './$(1).scss';\n\n\nfunction $(0)() {\n    return (\n        <div>$(0) works!</div>\n    );\n}\n\nexport default $(0);",
+    "styleClassTemplate": "import React from 'react';\nimport './$(1).scss';\n\n\nclass $(0) extends React.Component {\n    render(){\n        return (<div>$(0) works!</div>\n        );\n    }\n}\n\nexport default $(0);",
+    
+    "functionTemplate": "import React from 'react';\n\n\nfunction $(0)() {\n    return (\n        <div>$(0) works!</div>\n    );\n}\n\nexport default $(0);",
+    "classTemplate": "import React from 'react';\n\n\nclass $(0) extends React.Component {\n    render(){\n        return (<div>$(0) works!</div>\n        );\n    }\n}\n\nexport default $(0);"
+}
