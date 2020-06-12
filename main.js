@@ -19,7 +19,7 @@ arguments = createCommand.bindCreateCommand(arguments);
 arguments = generateCommand.bindGenerateCommand(arguments);
 
 arguments.scriptName('')
-    .version('2.0.0')
+    .version('2.0.1')
     .help()
     .alias('h', 'help')
     .alias('v', 'version').argv;

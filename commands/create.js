@@ -146,7 +146,7 @@ module.exports = {
                     + 'https://github.com/AndrewFahmy/react-templates/branches/all',
                 alias: 't',
                 type: 'string',
-                default: 'default-typescript'
+                default: 'ts-default'
             }).positional('skip-git', {
                 desc: 'Skips creating a git repository for the new project.',
                 alias: 'G',
