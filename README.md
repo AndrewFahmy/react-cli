@@ -5,7 +5,7 @@ Simple CLI for building react applications.
 
 Install the package globaly from NPM and then you can use it as below:
 
-    npm i @react/cli
+    npm i simple-rcli -g
 
 Main help section.
 
@@ -33,7 +33,7 @@ You can create a new project (base on one of the [templates](https://github.com/
     template, t      Template to be used for project, you can view all templates
                      on the following link:
                      https://github.com/AndrewFahmy/react-templates/branches/all
-                                        [string] [default: "default-typescript"]
+                                        [string] [default: "ts-default"]
     skip-git, G      Skips creating a git repository for the new project.
                                                       [boolean] [default: false]
     skip-install, I  Skips installing template dependencies using NPM.
