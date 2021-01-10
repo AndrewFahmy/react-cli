@@ -100,7 +100,7 @@ function execute(args) {
     spinner.start('Creating Component file...');
     createComponentFile(args, componentPath);
 
-    console.log(cliColor.green(`Cuccessfully created component '${args.name}'.`));
+    console.log(cliColor.green(`Successfully created component '${args.name}'.`));
 }
 
 module.exports = {
