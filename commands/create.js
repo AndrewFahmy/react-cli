@@ -42,6 +42,15 @@ function updatePackageConfigFile(args) {
     files.updateJsonFile(packageLocation, package);
 }
 
+function updateGitIngoreFile(args) {
+    const gitIngoreFile = path.resolve(files.getCurrentDirectoryBase(), args.name, '.gitignore');
+    files.deleteFile(gitIngoreFile);
+
+    const newContent = 'node_modules\ndist';
+
+    files.writeFile(gitIngoreFile, newContent);
+}
+
 function initializeNewGitRepo(dirPath, callback) {
     exec('git init', {
         cwd: dirPath
@@ -77,6 +86,8 @@ function cloneFiles(args, dirPath, callback) {
         files.deleteDirectory(oldGitPath);
 
         updatePackageConfigFile(args);
+
+        updateGitIngoreFile(args);
 
         spinner.succeed('Project files were downloaded successfully.')
 
@@ -146,7 +157,7 @@ module.exports = {
                     + 'https://github.com/AndrewFahmy/react-templates/branches/all',
                 alias: 't',
                 type: 'string',
-                default: 'ts-default'
+                default: 'default'
             }).positional('skip-git', {
                 desc: 'Skips creating a git repository for the new project.',
                 alias: 'G',

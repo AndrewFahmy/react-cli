@@ -10,6 +10,8 @@ module.exports = {
 
     deleteDirectory: (path) => fs.rmdirSync(path, { recursive: true }),
 
+    deleteFile: (path) => fs.unlinkSync(path),
+
     getJsonContents: (path) => require(path),
 
     updateJsonFile: (path, data) => fs.writeFileSync(path, JSON.stringify(data, null, 4)),
