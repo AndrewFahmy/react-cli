@@ -46,7 +46,7 @@ function createContainerFolder(name) {
 }
 
 function createStyleFile(name, componentPath) {
-    files.writeFile(path.resolve(componentPath, `${camelCase(name)}.scss`), '/* Component level styles can be placed here */\n');
+    files.writeFile(path.resolve(componentPath, `${paramCase(name)}.scss`), '/* Component level styles can be placed here */\n');
     spinner.succeed('Style file creation was successful.');
 }
 
@@ -76,7 +76,7 @@ function createComponentFile(args, componentPath) {
 
     const updatedTemplate = value.replace(/\$\(0\)/g, pascalCase(args.name));
 
-    files.writeFile(path.resolve(componentPath, `${camelCase(args.name)}.${usesTypescript ? 'tsx' : 'jsx'}`), updatedTemplate);
+    files.writeFile(path.resolve(componentPath, `${paramCase(args.name)}.${usesTypescript ? 'tsx' : 'jsx'}`), updatedTemplate);
 
     spinner.succeed('Component file creation was successful.');
 }
@@ -86,7 +86,7 @@ function execute(args) {
 
     if (!args.skipContainer) {
         spinner.start('Creating container folder...');
-        componentPath = createContainerFolder(args.name);
+        componentPath = createContainerFolder(paramCase(args.name));
     }
     else spinner.warn('Skipped creating a container folder.');
 
