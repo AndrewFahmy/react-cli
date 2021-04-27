@@ -2,8 +2,7 @@ const files = require('../helpers/files'),
     path = require('path'),
     cliColor = require('cli-color'),
     ora = require('ora'),
-    pascalCase = require('pascalcase'),
-    camelCase = require('camelcase'),
+    pascalCase = require('pascalcase'),    
     { paramCase } = require('param-case');
 
 const spinner = ora();
@@ -72,7 +71,7 @@ function createComponentFile(args, componentPath) {
     let value = template;
 
     if (!args.skipStyle)
-        value = template.replace(/\$\(1\)/g, camelCase(args.name));
+        value = template.replace(/\$\(1\)/g, paramCase(args.name));
 
     const updatedTemplate = value.replace(/\$\(0\)/g, pascalCase(args.name));
 
