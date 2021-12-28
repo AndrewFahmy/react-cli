@@ -8,7 +8,7 @@ module.exports = {
 
     createDirectory: (path) => fs.mkdirSync(path),
 
-    deleteDirectory: (path) => fs.rmdirSync(path, { recursive: true }),
+    deleteDirectory: (path) => fs.rmSync(path, { recursive: true }),
 
     deleteFile: (path) => fs.unlinkSync(path),
 
